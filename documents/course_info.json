@@ -1,0 +1,31 @@
+{
+  "_id" : "",
+  "course_code" : "JAVASEL",
+  "course_name" : "QA Automation",
+  "short_description" : "",
+  "description": "",
+  "metadata": {
+    "createdBy": "",
+    "updatedBy": "",
+    "createDate": "",
+    "updateDate": "",
+    "version": ""
+  },
+  "author": "authorId",
+  "thumbnailUrl": "",
+  "instructor": "instructorId",
+  "deliveryMode" : [
+    "ONLINE",
+    "OFFLINE"
+  ],
+  "companyId": "",
+  "deliveryLocation": [
+    {
+      "locationId": "233"
+    }
+  ],
+  "status": "",
+  "approved": "",
+  "approvedBy": ""
+
+}

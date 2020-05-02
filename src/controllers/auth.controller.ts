@@ -2,7 +2,7 @@ import { Controller, Get, Logger, UseGuards, Req, UseInterceptors } from '@nestj
 import { User } from '../domain/user.entity';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../security';
 import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
-import { ApiBearerAuth, ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from '../services/auth.service';
 
 @Controller('api/users')

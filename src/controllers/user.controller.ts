@@ -2,7 +2,7 @@ import { UserService } from '../services/user.service';
 import { Body, Controller, Get, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { User } from '../domain/user.entity';
 import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard, RolesGuard } from '../security';
 
 @Controller('user')
@@ -15,9 +15,13 @@ export class UserController {
   }
 
   @Get()
-  getUser(): Promise<User[]> {
+  @ApiResponse({
+    type : User,
+    status: 200
+  })
+  async getUser(): Promise<User[]> {
    // const  user= new User();
-    return this.userService.findAll()
+    return await this.userService.findAll()
   }
   @Post()
   createUser(@Body() user: User): Promise<User> {

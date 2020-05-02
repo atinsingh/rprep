@@ -1,0 +1,11 @@
+
+export enum StatusEnum {
+  ACTIVE = "ACTIVE",
+  SUSPENDED ="SUSPENDED",
+  EXPIRED ="EXPIRED",
+  CANCELLED="EXPIRED",
+  HOLD =  "HOLD",
+  APPROVED="APPROVED",
+  CLOSED ="CLOSED",
+  NEW ="NEW"
+}

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { UserModule } from '../user/user.module';
+import { UserModule } from './user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../security/passport.jwt.strategy';
@@ -10,10 +10,12 @@ import { config } from '../app.config';
 
 import { AuthController } from '../controllers/auth.controller';
 import { AccountController } from '../controllers/account.controller';
+import { CourseModule } from './course.module';
 
 @Module({
   imports: [
     //TypeOrmModule.forFeature([AuthorityRepository]),
+    CourseModule,
     UserModule,
     PassportModule,
     JwtModule.register({

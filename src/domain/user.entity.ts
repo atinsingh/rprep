@@ -1,4 +1,4 @@
-import { Entity, Column, ObjectIdColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { Authority } from './authority.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseEntity } from './base/base.entity';

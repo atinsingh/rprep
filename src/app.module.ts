@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './modules/auth.module';
+import { CourseModule } from './modules/course.module';
+
 const commonConf = {
   SYNCRONIZE: false,
   ENTITIES: [__dirname + '/domain/*.entity{.ts,.js}'],
@@ -18,7 +19,7 @@ const commonConf = {
 @Module({
   imports: [TypeOrmModule.forRoot({
           type: 'mongodb',
-          url: 'mongodb://lms:lms@localhost:27017/lms',
+          url: 'mongodb://localhost:27017/lms',
           entities: [join(__dirname, '**/**.entity{.ts,.js}')],
           migrations: commonConf.MIGRATIONS,
           synchronize: true,
@@ -28,6 +29,7 @@ const commonConf = {
           migrationsRun: commonConf.MIGRATIONS_RUN
         }),
       AuthModule,
+      CourseModule,
       ],
   controllers: [AppController],
   providers: [AppService],

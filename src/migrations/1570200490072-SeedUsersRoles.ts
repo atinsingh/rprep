@@ -1,7 +1,9 @@
-import { getConnectionOptions, MigrationInterface, QueryRunner } from 'typeorm';
+import { getMongoManager, MigrationInterface } from 'typeorm';
 import { User } from '../domain/user.entity';
 import { Authority } from '../domain/authority.entity';
 import { MongoQueryRunner } from 'typeorm/driver/mongodb/MongoQueryRunner';
+import { CourseInfo } from '../domain/courseinfo.entity';
+import { StatusEnum } from '../domain/enums/status.enum';
 
 export class SeedUsersRoles1570200490072 implements MigrationInterface {
 
@@ -66,8 +68,41 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
     lastModifiedBy: 'system'
   };
 
+  courseInfo: CourseInfo = {
+    courseCode : "JAVASEL",
+    courseName : "QA Automation",
+    shortDescription : "java learning program",
+    description: "best way to learn java from us",
+    metadata: {
+      createdBy: "Atin",
+      lastModifiedBy: "Atin",
+      lastModifiedDate: new Date(),
+      createdDate: new Date(),
+      version: "1"
+    },
+    author: "atins",
+    thumbnailUrl: "",
+    instructor: "atins",
+    deliveryMode : [
+      "ONLINE",
+      "OFFLINE"
+    ],
+    companyId: "pragra",
+    deliveryLocation: [
+      {
+        "locationId": "233"
+      }
+    ],
+    status: StatusEnum.ACTIVE,
+    approved: true,
+    approvedBy: "VG"
+
+  };
+
+
   public async up(queryRunner: MongoQueryRunner): Promise<any> {
-    const conn = queryRunner.connection;
+   const manager = getMongoManager();
+   // const conn = queryRunner.connection;
     // this.role1.name ='ROLE_ADMIN';
     // this.role2.name = 'ROLE_USER';
     // await conn
@@ -77,7 +112,11 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
     //   .values([this.role1, this.role2])
     //   .execute();
 
-  await queryRunner.insertOne("user", this.user3);
+    await queryRunner.insertOne("courseinfo",this.courseInfo);
+    await queryRunner.insertOne("user", this.user3);
+    await queryRunner.insertOne("user", this.user2);
+
+
 
     // await conn
     //   .createQueryBuilder()
