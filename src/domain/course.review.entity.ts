@@ -1,8 +1,9 @@
-import { Column, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { StatusEnum } from './enums/status.enum';
 
 
+@Entity('course_reviews')
 export class CourseReview {
 
   @ApiProperty({description:'Review ID for the review'})
@@ -16,6 +17,10 @@ export class CourseReview {
   @ApiProperty({description: 'Date of Review'})
   @Column()
   reviewDate: Date;
+
+  @ApiProperty({description: 'Set to null if review has not been modified'})
+  @Column({nullable: true})
+  modifiedDate: Date;
 
   @ApiProperty({description: 'Review Stars'})
   @Column()
@@ -32,5 +37,8 @@ export class CourseReview {
   @ApiProperty({description: 'Programs review'})
   @Column()
   programId: string;
+
+  @ApiProperty({description: 'Set to true if review has been modified'})
+  modified: boolean;
 
 }

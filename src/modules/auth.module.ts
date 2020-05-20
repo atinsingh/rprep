@@ -11,11 +11,13 @@ import { config } from '../app.config';
 import { AuthController } from '../controllers/auth.controller';
 import { AccountController } from '../controllers/account.controller';
 import { CourseModule } from './course.module';
+import { CategoryModule } from './category.module';
 
 @Module({
   imports: [
     //TypeOrmModule.forFeature([AuthorityRepository]),
     CourseModule,
+    CategoryModule,
     UserModule,
     PassportModule,
     JwtModule.register({

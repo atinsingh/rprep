@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './modules/auth.module';
@@ -8,7 +6,10 @@ import { CourseModule } from './modules/course.module';
 
 const commonConf = {
   SYNCRONIZE: false,
-  ENTITIES: [__dirname + '/domain/*.entity{.ts,.js}'],
+  ENTITIES: [ __dirname + '/domain/*.entity{.ts,.js}',
+              __dirname + '/domain/category/*.entity{.ts,.js}',
+              __dirname + '/modules/**/*.entity{.ts,.js}'
+             ],
   MIGRATIONS: [__dirname + '/migrations/**/*{.ts,.js}'],
   CLI: {
     migrationsDir: 'src/migrations'
@@ -19,11 +20,12 @@ const commonConf = {
 @Module({
   imports: [TypeOrmModule.forRoot({
           type: 'mongodb',
-          url: 'mongodb://localhost:27017/lms',
-          entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+          url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
+          entities: commonConf.ENTITIES,
           migrations: commonConf.MIGRATIONS,
           synchronize: true,
           useNewUrlParser: true,
+          useUnifiedTopology: true,
           logging: true,
           cli: commonConf.CLI,
           migrationsRun: commonConf.MIGRATIONS_RUN
@@ -31,7 +33,7 @@ const commonConf = {
       AuthModule,
       CourseModule,
       ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

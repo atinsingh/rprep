@@ -5,7 +5,7 @@ import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard, RolesGuard } from '../security';
 
-@Controller('user')
+@Controller('api/user')
 @UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
 @ApiBearerAuth()

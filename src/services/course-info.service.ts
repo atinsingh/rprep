@@ -7,7 +7,7 @@ import { User } from '../domain/user.entity';
 import { CourseCodeService } from './course.code.service';
 import { CourseCodes } from '../domain/coursecode.entity';
 import { BadDataException } from '../exceptions/bad.data.exception';
-import { CourseReview } from '../domain/course.review';
+import { CourseReview } from '../domain/course.review.entity';
 
 
 @Injectable()
@@ -72,6 +72,8 @@ export class CourseInfoService {
         courseInfo.internalRating = courseInfo.internalRating == undefined ? 0 : courseInfo.internalRating;
         courseInfo.externalRating = courseInfo.externalRating == undefined ? 0 : courseInfo.externalRating;
 
+
+
         // Add more business logic here.
        return  this.repo.save(courseInfo);
 
@@ -87,11 +89,22 @@ export class CourseInfoService {
         if (courseReview.reviewStar < 1) {
             throw new BadDataException(400, 'Star value can not be less than 1', 400);
         }
-        const course = await this.repo.findOne(courseId);
-        const reviews = course.reviews;
-        reviews.push(courseReview);
-        this.repo.updateOne({ id: courseId }, { $set: { reviews: reviews } });
+        const course:CourseInfo = await this.repo.findOne(courseId);
+        const rev = course.reviews;
+        courseReview.reviewDate = (courseReview.reviewDate==undefined|| courseReview.reviewDate ==null)? new Date(): courseReview.reviewDate;
+        courseReview.status = (courseReview.status==undefined|| courseReview.status ==null)?StatusEnum.NEW:courseReview.status;
+        rev.push(courseReview);
+        const result = await this.repo.updateOne({ courseCode : course.courseCode }, { $set: { reviews: rev } });
+        Logger.log(result)
         return await this.repo.findOne(courseId);
+    }
+
+    approveCourseInfo(courseId: string, user: User) : boolean| void {
+            //
+    }
+
+    async saveImage(image): Promise<any> {
+
     }
 
 
