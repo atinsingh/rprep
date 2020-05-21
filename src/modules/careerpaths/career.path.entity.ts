@@ -1,8 +1,10 @@
-import { BaseEntity } from '../../domain/base/base.entity';
+
 import { Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { CareerPathCourses } from './career.path.courses';
-import { Stats } from '../../domain/stats';
+import { BaseEntity } from '../../model/base/base.entity';
+import { Stats } from '../../model/stats';
+
 
 export class CareerPathEntity extends BaseEntity{
 

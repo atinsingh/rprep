@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CourseCategory } from '../domain/category/course.category.entity';
-import { CourseSubCategory } from '../domain/category/course.sub.category.entity';
 import { CategoryController } from '../controllers/category.controller';
 import { CategoryService } from '../services/category.service';
 import { SubCategoryService } from '../services/sub.category.service';
+import { CourseCategory } from '../model/category/course.category.entity';
+import { CourseSubCategory } from '../model/category/course.sub.category.entity';
 
 
 

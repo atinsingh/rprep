@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { CourseCodeService } from '../services/course.code.service';
+import { CourseCodeService } from './course-code.service';
 import {  ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CourseCodes } from '../domain/coursecode.entity';
+import { CourseCodes } from '../../model/coursecode.entity';
 
 @ApiTags('Courses')
 @Controller('api/course-code')

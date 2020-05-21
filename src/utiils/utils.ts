@@ -1,4 +1,4 @@
-import { StatusEnum } from '../domain/enums/status.enum';
+import { StatusEnum } from '../model/enums/status.enum';
 
 export class Utils {
   static getStatusEnumFromString(str: string): StatusEnum {

@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { CourseInfoRepository } from '../repository/courseinfo.repository';
-import { CourseInfo } from '../domain/courseinfo.entity';
+import { CourseInfoRepository } from '../../repository/courseinfo.repository';
+import { CourseInfo } from '../../model/courseinfo.entity';
 import _ from 'lodash';
-import { StatusEnum } from '../domain/enums/status.enum';
-import { User } from '../domain/user.entity';
-import { CourseCodeService } from './course.code.service';
-import { CourseCodes } from '../domain/coursecode.entity';
-import { BadDataException } from '../exceptions/bad.data.exception';
-import { CourseReview } from '../domain/course.review.entity';
+import { StatusEnum } from '../../model/enums/status.enum';
+import { User } from '../../model/user.entity';
+import { CourseCodeService } from '../../app/coursecode/course-code.service';
+import { CourseCodes } from '../../model/coursecode.entity';
+import { BadDataException } from '../../exceptions/bad.data.exception';
+import { CourseReview } from '../../model/course.review';
 
 
 @Injectable()

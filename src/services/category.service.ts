@@ -1,7 +1,8 @@
 import { ExecutionContext, Inject, Injectable, Logger, Request } from '@nestjs/common';
 import { FindManyOptions, MongoRepository } from 'typeorm';
-import { CourseCategory } from '../domain/category/course.category.entity';
+
 import { InjectRepository } from '@nestjs/typeorm';
+import { CourseCategory } from '../model/category/course.category.entity';
 
 
 

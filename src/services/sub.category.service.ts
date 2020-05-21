@@ -1,9 +1,10 @@
 import { MongoRepository } from 'typeorm';
-import { CourseSubCategory } from '../domain/category/course.sub.category.entity';
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoryService } from './category.service';
 import { BadDataException } from '../exceptions/bad.data.exception';
+import { CourseSubCategory } from '../model/category/course.sub.category.entity';
 
 @Injectable()
 export class SubCategoryService {

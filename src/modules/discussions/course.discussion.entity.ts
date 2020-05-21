@@ -1,8 +1,8 @@
 import { Column, Entity, ObjectID } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../../domain/user.entity';
-import { BaseEntity } from '../../domain/base/base.entity';
+
 import { DiscussionReply } from './discussion.reply';
+import { BaseEntity } from '../../model/base/base.entity';
 
 @Entity()
 export class CourseDiscussionEntity extends BaseEntity{

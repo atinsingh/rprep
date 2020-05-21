@@ -16,7 +16,7 @@ export class MetaData {
   @Column({ nullable: true })
   lastModifiedDate?: Date
 
-  @ApiProperty({example: "1"})
+  @ApiProperty({example: 1})
   @Column()
-  version: number;
+  version: number
 }

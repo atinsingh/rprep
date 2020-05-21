@@ -121,10 +121,10 @@ export class CourseInfo{
 
     //courseFaq: string
     //the type of page that users will see when they first visit the course -
-    default_view: string;
+    defaultView: string;
     permissions:  CoursePermisssion[];
 
     @ApiProperty()
     @Column()
-    is_public:boolean;
+    isPublic:boolean;
 }

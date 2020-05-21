@@ -1,9 +1,9 @@
 import { Controller, Get, Logger, UseGuards, Req, UseInterceptors } from '@nestjs/common';
-import { User } from '../domain/user.entity';
-import { AuthGuard, Roles, RolesGuard, RoleType } from '../security';
-import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
+import { User } from '../../model/user.entity';
+import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
+import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from './auth.service';
 
 @Controller('api/users')
 @UseGuards(AuthGuard, RolesGuard)

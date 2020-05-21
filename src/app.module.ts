@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { AuthModule } from './modules/auth.module';
-import { CourseModule } from './modules/course.module';
+import { AuthModule } from './app/auth/auth.module';
+import { CourseModule } from './app/coursecode/course-code.module';
 
 const commonConf = {
   SYNCRONIZE: false,
-  ENTITIES: [ __dirname + '/domain/*.entity{.ts,.js}',
-              __dirname + '/domain/category/*.entity{.ts,.js}',
+  ENTITIES: [ __dirname + '/model/*.entity{.ts,.js}',
+              __dirname + '/model/category/*.entity{.ts,.js}',
               __dirname + '/modules/**/*.entity{.ts,.js}'
              ],
   MIGRATIONS: [__dirname + '/migrations/**/*{.ts,.js}'],

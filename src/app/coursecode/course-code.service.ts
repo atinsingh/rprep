@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { MongoRepository } from 'typeorm';
-import { CourseCodes } from '../domain/coursecode.entity';
+import { CourseCodes } from '../../model/coursecode.entity';
 import *  as fast from 'fast-json-patch';
 import _ from 'lodash';
 import { InjectRepository } from '@nestjs/typeorm';
