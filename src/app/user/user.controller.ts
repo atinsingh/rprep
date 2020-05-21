@@ -1,9 +1,9 @@
-import { UserService } from '../services/user.service';
+import { UserService } from './user.service';
 import { Body, Controller, Get, Post, UseGuards, UseInterceptors } from '@nestjs/common';
-import { User } from '../domain/user.entity';
-import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
+import { User } from '../../model/user.entity';
+import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
-import { AuthGuard, RolesGuard } from '../security';
+import { AuthGuard, RolesGuard } from '../../security';
 
 @Controller('user')
 @UseGuards(AuthGuard, RolesGuard)

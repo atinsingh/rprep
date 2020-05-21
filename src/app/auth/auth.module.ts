@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from '../services/auth.service';
-import { UserModule } from './user.module';
+import { AuthService } from './auth.service';
+import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from '../security/passport.jwt.strategy';
-import { UserJWTController } from '../controllers/user.jwt.controller';
-import { config } from '../app.config';
+import { JwtStrategy } from '../../security/passport.jwt.strategy';
+import { UserJWTController } from '../user/user.jwt.controller';
+import { config } from '../../app.config';
 
 
-import { AuthController } from '../controllers/auth.controller';
-import { AccountController } from '../controllers/account.controller';
-import { CourseModule } from './course.module';
+import { AuthController } from './auth.controller';
+import { AccountController } from './account.controller';
+import { CourseModule } from '../coursecode/course-code.module';
 
 @Module({
   imports: [

@@ -1,10 +1,10 @@
 import { Controller, Get, Logger, Param, Query, Request, UseGuards, UseInterceptors } from '@nestjs/common';
-import { CourseInfo } from '../domain/courseinfo.entity';
-import { CourseInfoService } from '../services/course-info.service';
+import { CourseInfo } from '../../model/courseinfo.entity';
+import { CourseInfoService } from './course-info.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Utils } from '../utiils/utils';
-import { AuthGuard, RolesGuard } from '../security';
-import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
+import { Utils } from '../../utiils/utils';
+import { AuthGuard, RolesGuard } from '../../security';
+import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 
 
 @Controller('api/course-info')

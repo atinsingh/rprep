@@ -1,4 +1,4 @@
-import { Authority } from '../domain/authority.entity';
+import { Authority } from '../model/authority.entity';
 
 
 export interface Payload {

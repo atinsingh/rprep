@@ -1,8 +1,8 @@
 import { Body, Controller, Logger, Post, Res, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { UserLoginDTO } from '../services/dto/user-login.dto';
-import { AuthService } from '../services/auth.service';
-import { LoggingInterceptor } from '../client/interceptors/logging.interceptor';
+import { UserLoginDTO } from '../../services/dto/user-login.dto';
+import { AuthService } from '../auth/auth.service';
+import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 
 @Controller('api')

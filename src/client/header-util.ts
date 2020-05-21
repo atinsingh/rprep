@@ -1,6 +1,6 @@
 import { config } from '../app.config';
 import { Response } from 'express';
-import { Page } from '../domain/base/pagination.entity';
+import { Page } from '../model/base/pagination.entity';
 
 const applicationName = config.get('app.clientApp.name');
 const enableTranslation = true;

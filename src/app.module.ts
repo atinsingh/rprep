@@ -3,8 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { AuthModule } from './modules/auth.module';
-import { CourseModule } from './modules/course.module';
+import { AuthModule } from './app/auth/auth.module';
+import { CourseModule } from './app/coursecode/course-code.module';
 
 const commonConf = {
   SYNCRONIZE: false,
