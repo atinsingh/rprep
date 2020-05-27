@@ -56,7 +56,7 @@ export class CourseInfo{
     @Column()
     instructor: string;
 
-    @ApiProperty({enum: ['OFFLINE', 'ONLINE'], description:'delivery mode'})
+    @ApiProperty({enum: ['OFFLINE', 'ONLINE',"SELFPACED"], description:'delivery mode'})
     @Column()
     deliveryMode: string [];
 
