@@ -7,5 +7,8 @@ export enum StatusEnum {
   HOLD =  "HOLD",
   APPROVED="APPROVED",
   CLOSED ="CLOSED",
-  NEW ="NEW"
+  NEW = "NEW",
+  FAILED = "FAILED",
+  COMPLETED = "COMPLETED",
+  REFUND = "EXPIRED",
 }

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './app/auth/auth.module';
 import { CourseModule } from './app/coursecode/course-code.module';
+import { OrderModule } from './app/order/order.module';
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -20,7 +21,7 @@ const commonConf = {
 @Module({
   imports: [TypeOrmModule.forRoot({
           type: 'mongodb',
-          url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
+          url: 'mongodb://localhost:27017/lms',
           entities: commonConf.ENTITIES,
           migrations: commonConf.MIGRATIONS,
           synchronize: true,
@@ -32,6 +33,7 @@ const commonConf = {
         }),
       AuthModule,
       CourseModule,
+      OrderModule
       ],
   controllers: [],
   providers: [],

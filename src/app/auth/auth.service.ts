@@ -43,6 +43,6 @@ export class AuthService {
   // }
 
   async findUserWithAuthById(userId: string): Promise<User | undefined> {
-    return  await this.userService.findByfields({ where: { id: userId } });
+    return  await this.userService.find(userId);
   }
 }
