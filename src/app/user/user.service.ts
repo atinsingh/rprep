@@ -25,8 +25,8 @@ export class UserService {
     return this.flatAuthorities(result);
   }
 
-  async find(id: string): Promise<User | undefined> {
-    const result = await this.userRepository.findOne(id);
+  async find(options:FindOneOptions<User>): Promise<User | undefined> {
+    const result = await this.userRepository.findOne(options);
     return this.flatAuthorities(result);
   }
 

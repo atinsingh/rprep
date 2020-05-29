@@ -4,6 +4,7 @@ import { join } from 'path';
 import { AuthModule } from './app/auth/auth.module';
 import { CourseModule } from './app/coursecode/course-code.module';
 import { OrderModule } from './app/order/order.module';
+import { PurchasedCourseModule } from './app/purchasedcourse/purchasedcourse.module';
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -19,22 +20,24 @@ const commonConf = {
 };
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-          type: 'mongodb',
-          url: 'mongodb://localhost:27017/lms',
-          entities: commonConf.ENTITIES,
-          migrations: commonConf.MIGRATIONS,
-          synchronize: true,
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          logging: true,
-          cli: commonConf.CLI,
-          migrationsRun: commonConf.MIGRATIONS_RUN
-        }),
-      AuthModule,
-      CourseModule,
-      OrderModule
-      ],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mongodb',
+      url: 'mongodb://localhost:27017/lms',
+      entities: commonConf.ENTITIES,
+      migrations: commonConf.MIGRATIONS,
+      synchronize: false,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      logging: true,
+      cli: commonConf.CLI,
+      migrationsRun: commonConf.MIGRATIONS_RUN,
+    }),
+    AuthModule,
+    CourseModule,
+    OrderModule,
+    PurchasedCourseModule,
+  ],
   controllers: [],
   providers: [],
 })
