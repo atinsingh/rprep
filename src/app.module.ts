@@ -5,6 +5,7 @@ import { AuthModule } from './app/auth/auth.module';
 import { CourseModule } from './app/coursecode/course-code.module';
 import { OrderModule } from './app/order/order.module';
 import { PurchasedCourseModule } from './app/purchasedcourse/purchasedcourse.module';
+import { SearchModule } from './app/search/search.module';
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -37,6 +38,7 @@ const commonConf = {
     CourseModule,
     OrderModule,
     PurchasedCourseModule,
+    SearchModule
   ],
   controllers: [],
   providers: [],

@@ -5,7 +5,7 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard, RolesGuard } from '../../security';
 
-@Controller('api/order')
+@Controller('api/purchased-order')
 @UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
 @ApiBearerAuth()
@@ -20,12 +20,12 @@ export class PurchasedCourseController {
     type: PurchasedCourse,
     status: 200,
   })
-  async getOrder(): Promise<PurchasedCourse[]> {
+  async getPuchasedOrder(): Promise<PurchasedCourse[]> {
     return await this.purchasedCourseService.findAll();
   }
 
   @Post()
-  createOrder(
+  createPuchasedOrder(
     @Body() purchasedCourse: PurchasedCourse,
   ): Promise<PurchasedCourse> {
     return this.purchasedCourseService.create(purchasedCourse);
