@@ -8,12 +8,12 @@ const logger = new Logger('Config');
 export class Config {
   debugLogging = 'debug';
 
-  'server.port' = '8081';
+  'server.port' = '80';
   'app.security.authentication.jwt.base64-secret' = 'secret';
   'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
   'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;
-  'app.mail.base-url' = 'http://127.0.0.1:${server.port}';
-  'app.mail.from' = 'nodeapp@localhost';
+  'app.mail.base-url' = 'http://pragra.io';
+  'app.mail.from' = 'info@pragra.co';
   'app.swagger.default-include-pattern' = '/api/.*';
   'app.swagger.title' = 'PRAGRA LMS API';
   'app.swagger.description' = 'Pragra LMS core API documentation';
