@@ -15,5 +15,4 @@ import { CourseSubCategory } from '../model/category/course.sub.category.entity'
 
 })
 export class CategoryModule {
-
 }

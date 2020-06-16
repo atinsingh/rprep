@@ -18,7 +18,8 @@ export class Config {
   'app.swagger.title' = 'PRAGRA LMS API';
   'app.swagger.description' = 'Pragra LMS core API documentation';
   'app.swagger.version' = '0.0.1';
-  'app.swagger.path' = '/api/v2/api-docs';
+  'app.swagger.path' = '/api/docs';
+  'app.db' = 'lms';
 
   constructor(properties) {
     this.addAll(properties);

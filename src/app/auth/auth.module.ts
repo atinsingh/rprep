@@ -10,7 +10,7 @@ import { config } from '../../app.config';
 
 import { AuthController } from './auth.controller';
 import { AccountController } from './account.controller';
-import { CourseModule } from '../coursecode/course-code.module';
+import { CourseModule } from "../../modules/course.module";
 
 @Module({
   imports: [
