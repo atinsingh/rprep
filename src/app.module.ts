@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './app/auth/auth.module';
 import { TestimonialModule } from "./modules/testimonial/testimonial.module";
+import {CourseDetailsModule} from "./modules/coursemodules/course.details.module";
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -31,7 +32,8 @@ const commonConf = {
           migrationsRun: commonConf.MIGRATIONS_RUN
         }),
       AuthModule,
-      TestimonialModule
+      TestimonialModule,
+      CourseDetailsModule,
       ],
   controllers: [],
   providers: [],

@@ -18,6 +18,9 @@ export class CourseInfoService {
     constructor(private repo: CourseInfoRepository, private courseCodeService: CourseCodeService) {
     }
 
+    /*
+        Get All courses for the options passed
+     */
     getAllCourseInfo(options:{}={}): Promise<CourseInfo[]> {
         if(_.isEmpty(options)) {
             options = { status: StatusEnum.ACTIVE }
@@ -38,6 +41,7 @@ export class CourseInfoService {
 
         if (courseInfo == null) {
             throw new BadRequestException(('Empty Body Kindly check body'))
+            return
         }
 
         if(user!=undefined){
@@ -122,6 +126,17 @@ export class CourseInfoService {
             ]
         })
     }
+
+
+    async getCourseInfoByUuid(uuid: string) : Promise<CourseInfo | any> {
+        return await this.repo.findOne({
+            where:{
+                uuid: uuid
+            }
+        })
+    }
+
+
 
 
 

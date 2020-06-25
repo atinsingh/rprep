@@ -11,10 +11,12 @@ import { CourseCodeController } from './courseinfo/course-code.controller';
 import { CourseInfoService } from './courseinfo/course-info.service';
 import { CourseCodeService } from './courseinfo/course-code.service';
 import { InstructorModule } from "./instructor/instructor.module";
+import {CourseDetailsModule} from "./coursemodules/course.details.module";
 
 @Module({
   imports: [TypeOrmModule.forFeature([CourseInfo, CourseCodes, InstructorEntity]),MulterModule , InstructorModule],
   controllers: [CourseInfoController, CourseCodeController],
   providers: [CourseInfoService, CourseCodeService,ImageRepository],
+  exports: [CourseInfoService]
 })
 export class CourseModule {}
