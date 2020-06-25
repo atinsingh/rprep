@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CourseLesson } from './course.lesson';
 import { StatusEnum } from './enums/status.enum';
 
-export class CourseModule extends BaseEntity{
+export class CourseModulePlan extends BaseEntity{
 
   @ApiProperty({description: 'mapped with course', required: true})
   @Column()
