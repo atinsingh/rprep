@@ -10,9 +10,10 @@ import { InstructorEntity } from '../model/instructor.entity';
 import { CourseCodeController } from './courseinfo/course-code.controller';
 import { CourseInfoService } from './courseinfo/course-info.service';
 import { CourseCodeService } from './courseinfo/course-code.service';
+import { InstructorModule } from "./instructor/instructor.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CourseInfo, CourseCodes, InstructorEntity]),MulterModule],
+  imports: [TypeOrmModule.forFeature([CourseInfo, CourseCodes, InstructorEntity]),MulterModule , InstructorModule],
   controllers: [CourseInfoController, CourseCodeController],
   providers: [CourseInfoService, CourseCodeService,ImageRepository],
 })

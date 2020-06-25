@@ -14,7 +14,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (): BadRequestException => new BadRequestException('Validation error')
-    })
+    }),
+
   );
 
   setupSwagger(app);
