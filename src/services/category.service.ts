@@ -20,7 +20,9 @@ export class CategoryService {
   async findOne(id: string): Promise<CourseCategory> {
     return await this.catRepo.findOne(id);
   }
-
+/*
+        this need to fixed 
+    */
   async findAll(): Promise<CourseCategory []> {
     return await this.catRepo.find();
   }
