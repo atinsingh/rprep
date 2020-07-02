@@ -23,6 +23,9 @@ export class CategoryService {
 /*
         this need to fixed 
     */
+  dummy() : void {
+    console.log('Another dummy')
+  }
   async findAll(): Promise<CourseCategory []> {
     return await this.catRepo.find();
   }
