@@ -6,6 +6,7 @@ import { CourseModule } from './app/coursecode/course-code.module';
 import { OrderModule } from './app/order/order.module';
 import { PurchasedCourseModule } from './app/purchasedcourse/purchasedcourse.module';
 import { SearchModule } from './app/search/search.module';
+import { InstructorModule } from './instructor/instructor.module';
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -24,7 +25,7 @@ const commonConf = {
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://localhost:27017/lms',
+      url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
       entities: commonConf.ENTITIES,
       migrations: commonConf.MIGRATIONS,
       synchronize: false,
@@ -38,7 +39,8 @@ const commonConf = {
     CourseModule,
     OrderModule,
     PurchasedCourseModule,
-    SearchModule
+    SearchModule,
+    InstructorModule
   ],
   controllers: [],
   providers: [],
