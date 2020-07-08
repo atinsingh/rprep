@@ -6,63 +6,59 @@ import { Logger } from '@nestjs/common';
 const logger = new Logger('Config');
 
 export class Config {
-         debugLogging = 'debug';
+  debugLogging = 'debug';
 
-         'server.port' = '8081';
-         'app.security.authentication.jwt.base64-secret' = 'secret';
-         'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
-         'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;
-         'app.mail.base-url' = 'http://127.0.0.1:${server.port}';
-         'app.mail.from' = 'nodeapp@localhost';
-         'app.swagger.default-include-pattern' = '/api/.*';
-         'app.swagger.title' = 'PRAGRA LMS API';
-         'app.swagger.description' = 'Pragra LMS core API documentation';
-         'app.swagger.version' = '0.0.1';
-         'app.swagger.path' = '/api/v2/api-docs';
-         'app.mongodbURL' = 'mongodb://localhost:27017';
-         'app.mongodbDB' = 'lms';
+  'server.port' = '80';
+  'app.security.authentication.jwt.base64-secret' = 'secret';
+  'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
+  'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;
+  'app.mail.base-url' = 'http://pragra.io';
+  'app.mail.from' = 'info@pragra.co';
+  'app.swagger.default-include-pattern' = '/api/.*';
+  'app.swagger.title' = 'PRAGRA LMS API';
+  'app.swagger.description' = 'Pragra LMS core API documentation';
+  'app.swagger.version' = '0.0.1';
+  'app.swagger.path' = '/api/docs';
+  'app.db' = 'lms';
 
-         constructor(properties) {
-           this.addAll(properties);
-         }
+  constructor(properties) {
+    this.addAll(properties);
+  }
 
-         public get(key: string): any {
-           return this[key];
-         }
+  public get(key: string): any {
+    return this[key];
+  }
 
-         public addAll(properties): any {
-           // eslint-disable-next-line @typescript-eslint/no-use-before-define
-           properties = objectToArray(properties);
-           for (const property in properties) {
-             if (properties.hasOwnProperty(property)) {
-               this[property] = properties[property];
-             }
-           }
-           this.postProcess();
-         }
+  public addAll(properties): any {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    properties = objectToArray(properties);
+    for (const property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        this[property] = properties[property];
+      }
+    }
+    this.postProcess();
+  }
 
-         public postProcess(): any {
-           const variables = { ...this, ...process.env };
-           for (const property in this) {
-             if (this.hasOwnProperty(property)) {
-               const value = this[property];
-               const processedValue = this.processTemplate(value, variables);
-               this[property] = processedValue;
-             }
-           }
-         }
+  public postProcess(): any {
+    const variables = { ...this, ...process.env };
+    for (const property in this) {
+      if (this.hasOwnProperty(property)) {
+        const value = this[property];
+        const processedValue = this.processTemplate(value, variables);
+        this[property] = processedValue;
+      }
+    }
+  }
 
-         private processTemplate(template, variables): any {
-           // console.log(template);
-           if (typeof template === 'string') {
-             return template.replace(
-               new RegExp('\\${[^{]+}', 'g'),
-               name => variables[name.substring(2, name.length - 1)],
-             );
-           }
-           return template;
-         }
-       }
+  private processTemplate(template, variables): any {
+    // console.log(template);
+    if (typeof template === 'string') {
+      return template.replace(new RegExp('\\${[^{]+}', 'g'), name => variables[name.substring(2, name.length - 1)]);
+    }
+    return template;
+  }
+}
 
 //const yamlConfigPath = path.join(__dirname, 'config', 'application.yml');
 //const envYamlConfigPath = path.join(__dirname, 'config', `application-${process.env.NODE_ENV}.yml`);

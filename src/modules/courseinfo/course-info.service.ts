@@ -4,17 +4,23 @@ import { CourseInfo } from '../../model/courseinfo.entity';
 import _ from 'lodash';
 import { StatusEnum } from '../../model/enums/status.enum';
 import { User } from '../../model/user.entity';
-import { CourseCodeService } from '../../app/coursecode/course-code.service';
+import { CourseCodeService } from './course-code.service';
 import { CourseCodes } from '../../model/coursecode.entity';
 import { BadDataException } from '../../exceptions/bad.data.exception';
 import { CourseReview } from '../../model/course.review';
+import {getConnection, MongoClient} from "typeorm";
+import {DbService} from "../shared/db/db.service";
 
 
 @Injectable()
 export class CourseInfoService {
+
     constructor(private repo: CourseInfoRepository, private courseCodeService: CourseCodeService) {
     }
 
+    /*
+        Get All courses for the options passed
+     */
     getAllCourseInfo(options:{}={}): Promise<CourseInfo[]> {
         if(_.isEmpty(options)) {
             options = { status: StatusEnum.ACTIVE }
@@ -35,6 +41,7 @@ export class CourseInfoService {
 
         if (courseInfo == null) {
             throw new BadRequestException(('Empty Body Kindly check body'))
+            return
         }
 
         if(user!=undefined){
@@ -103,9 +110,33 @@ export class CourseInfoService {
             //
     }
 
-    async saveImage(image): Promise<any> {
 
+    async saveImage(image): Promise<any> {
+        return null;
     }
+
+
+    async getReviewForACourse(courseId: string) : Promise<CourseReview[] | any> {
+        return this.repo.find({
+            where: {
+                id: courseId
+            },
+            select: [
+                "reviews"
+            ]
+        })
+    }
+
+
+    async getCourseInfoByUuid(uuid: string) : Promise<CourseInfo | any> {
+        return await this.repo.findOne({
+            where:{
+                uuid: uuid
+            }
+        })
+    }
+
+
 
 
 

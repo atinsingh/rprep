@@ -41,4 +41,7 @@ export class InstructorEntity extends BaseEntity{
     @Column()
     rating: number;
 
+    @Column()
+    userID: string;
+
 }

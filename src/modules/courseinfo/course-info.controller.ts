@@ -12,7 +12,7 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {ApiParam, ApiResponse, ApiTags} from '@nestjs/swagger';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { CourseInfoService } from './course-info.service';
 import { ImageRepository } from '../../repository/image.repository';
@@ -23,15 +23,11 @@ import { CourseReview } from '../../model/course.review';
 import { ImageData } from './image.data';
 
 
-
-
-
+@ApiTags('Courses')
 @Controller('api/course-info')
-@ApiTags('CourseInfo')
 @UseInterceptors(LoggingInterceptor)
-
 export class CourseInfoController {
-    data: string;
+    //data: string;
     constructor(private service:CourseInfoService, private imageRepo: ImageRepository) {
     }
     // @UseGuards(AuthGuard, RolesGuard)
@@ -39,6 +35,8 @@ export class CourseInfoController {
     @Get("/")
     @ApiResponse({
         type : CourseInfo,
+        isArray: true,
+        description: 'Returns all the courses',
         status: 200
     })
     @ApiResponse({
@@ -52,6 +50,15 @@ export class CourseInfoController {
         return this.service.getAllCourseInfo(options);
     }
 
+    @ApiParam({
+        name: 'id',
+        type: 'string'
+    })
+    @ApiResponse({
+        type : CourseInfo,
+        description: 'Returns course for specified id',
+        status: 200
+    })
     @Get("/:id")
     getAllCourseById(@Request() req, @Param() param) : Promise< CourseInfo | undefined>{
         Logger.debug(`Received request for the course id ${param.id} `)
@@ -59,10 +66,25 @@ export class CourseInfoController {
         return this.service.getCourseById(param.id);
     }
 
+    @ApiParam({
+        name: 'id',
+        type: 'string'
+    })
     @Post(":id/review")
     addReviews(@Body() review: CourseReview, @Param() param) : Promise<CourseInfo | any> {
         Logger.log(`Adding Review to course id ${param.id}`);
         return this.service.addReviewToCourse(review,param.id);
+    }
+
+    @ApiParam({
+        name: 'id',
+        type: 'string'
+    })
+    @Get(":id/review")
+    getReviews(@Param() param) : Promise<CourseReview [] | any> {
+        Logger.log(`Adding Review to course id ${param.id}`);
+        return this.service.getReviewForACourse(param.id);
+        //return this.service.addReviewToCourse(review,param.id);
     }
 
     @Post('upload')

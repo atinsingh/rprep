@@ -1,10 +1,11 @@
 import { BaseEntity } from './base/base.entity';
-import { Column, ObjectID } from 'typeorm';
+import {Column, Entity, ObjectID} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { CourseLesson } from './course.lesson';
 import { StatusEnum } from './enums/status.enum';
 
-export class CourseModule extends BaseEntity{
+@Entity('course-modules')
+export class CourseModulePlanEntity extends BaseEntity{
 
   @ApiProperty({description: 'mapped with course', required: true})
   @Column()

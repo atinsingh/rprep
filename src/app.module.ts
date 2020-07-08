@@ -2,11 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './app/auth/auth.module';
-import { CourseModule } from './app/coursecode/course-code.module';
-import { OrderModule } from './app/order/order.module';
-import { PurchasedCourseModule } from './app/purchasedcourse/purchasedcourse.module';
-import { SearchModule } from './app/search/search.module';
-import { InstructorModule } from './instructor/instructor.module';
+import { TestimonialModule } from "./modules/testimonial/testimonial.module";
+import {CourseDetailsModule} from "./modules/coursemodules/course.details.module";
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -22,26 +19,22 @@ const commonConf = {
 };
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
-      entities: commonConf.ENTITIES,
-      migrations: commonConf.MIGRATIONS,
-      synchronize: false,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      logging: true,
-      cli: commonConf.CLI,
-      migrationsRun: commonConf.MIGRATIONS_RUN,
-    }),
-    AuthModule,
-    CourseModule,
-    OrderModule,
-    PurchasedCourseModule,
-    SearchModule,
-    InstructorModule
-  ],
+  imports: [TypeOrmModule.forRoot({
+          type: 'mongodb',
+          url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
+          entities: commonConf.ENTITIES,
+          migrations: commonConf.MIGRATIONS,
+          synchronize: true,
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+          logging: true,
+          cli: commonConf.CLI,
+          migrationsRun: commonConf.MIGRATIONS_RUN
+        }),
+      AuthModule,
+      TestimonialModule,
+      CourseDetailsModule,
+      ],
   controllers: [],
   providers: [],
 })

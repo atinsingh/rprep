@@ -21,7 +21,7 @@ export class SubCategoryService {
          throw new BadDataException(400,'Category does not matches',400)
        }
     })
-
+    // What is this , shoudl have proper validation
     return await this.subCatRepo.save(subCategory);
   }
 
