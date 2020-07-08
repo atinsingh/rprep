@@ -20,7 +20,7 @@ export class CourseModulePlanEntity extends BaseEntity{
 
   @ApiProperty({description:'lessons attached with module'})
   @Column(type => CourseLesson)
-  lessons: CourseLesson[]
+  lessons: CourseLesson []
 
   @ApiProperty({description: 'Duration of the lesson in minute, 0 for non determined'})
   @Column()

@@ -5,6 +5,7 @@ import {MongoRepository} from "typeorm";
 import {CourseInfoService} from "../courseinfo/course-info.service";
 import {BadDataException} from "../../exceptions/bad.data.exception";
 import {StatusEnum} from "../../model/enums/status.enum";
+import {CourseLesson} from "../../model/course.lesson";
 
 
 @Injectable()
@@ -34,5 +35,18 @@ export class CourseModulePlanService {
             return new BadDataException(400,'Invalid UUID',400)
         }
         return response;
+    }
+
+    async addLesson(moduleId: string, lesson: CourseLesson) : Promise<CourseModulePlanEntity | any> {
+        // check if program uuid is correct.
+        const course : CourseModulePlanEntity = await this.repo.findOne(moduleId);
+        if(course===null || course === undefined) {
+            return new BadDataException(400, 'Invalid Module Id', 400)
+        }
+        // check if module is available
+
+        const lessons: CourseLesson []  = course.lessons;
+
+        lessons.push(lesson);
     }
 }
