@@ -1,6 +1,7 @@
 import { Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { LessonTypeEnum } from './enums/lesson.type.enum';
+import {LessonAssignment} from "./lesson.assignment";
 
 export class CourseLesson {
 
@@ -16,7 +17,11 @@ export class CourseLesson {
   @Column()
   title: string;
 
-  @ApiProperty({description: 'Course Duraration in mins, ui should covert this to proper format'})
+  @ApiProperty({description: 'Lesson Description'})
+  @Column()
+  description: string;
+
+  @ApiProperty({description: 'Course Duration in minutes, ui should covert this to proper format'})
   @Column()
   duration: number;
 
@@ -25,6 +30,22 @@ export class CourseLesson {
 
   @ApiProperty({description: 'Content type of lesson'})
   @Column()
-  lessonType: LessonTypeEnum.VIDEO
+  lessonType: LessonTypeEnum;
+
+  @ApiProperty({description: 'Content template'})
+  @Column()
+  htmlTemplate: string;
+
+  @Column()
+  contentUrl: string;
+
+  @Column()
+  quiz: [];
+
+  @Column()
+  inClassAssigment : LessonAssignment [];
+
+  @Column()
+  offLineAssignment: LessonAssignment [];
 
 }
