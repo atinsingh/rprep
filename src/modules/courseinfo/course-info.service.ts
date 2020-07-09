@@ -72,9 +72,9 @@ export class CourseInfoService {
             Logger.error(`Code  ${courseInfo.courseCode} is already expired it, kindly use a valid code`);
             throw  new BadDataException(400,`CourseCode ${courseInfo.courseCode} has already expired `, 400);
         }
-        if(courseInfo.shortDescription.length<200){
+        if(courseInfo.shortDescription.length<30){
             Logger.error(`CourseInfo is too short, kindly provide the valid`);
-            throw  new BadDataException(400,`CourseInfo is too short, kindly provide the valid`, 400);
+            throw  new BadDataException(400,`CourseInfo.shortDescription is too short, kindly provide the valid`, 400);
         }
         courseInfo.approved = false;
         courseInfo.internalRating = courseInfo.internalRating == undefined ? 0 : courseInfo.internalRating;

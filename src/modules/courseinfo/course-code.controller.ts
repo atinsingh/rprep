@@ -10,9 +10,26 @@ export class CourseCodeController {
   }
 
   @Get("/")
+  @ApiResponse({
+    status: 200,
+    type: CourseCodes,
+    isArray: true
+  })
   async getAllCode(): Promise<CourseCodes [] | any> {
     return await this.codeService.findAll({});
   }
+
+
+  @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'Created',
+    type: CourseCodes
+  })
+  async createOne(@Body() courseCode: CourseCodes): Promise<CourseCodes | any> {
+    return await this.codeService.saveSingleCode(courseCode);
+  }
+
 
   @Post("/expire/:id")
   expireCode(@Param() params) : Promise<CourseCodes | any> {
