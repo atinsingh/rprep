@@ -8,7 +8,8 @@ import { CourseCodeService } from './course-code.service';
 import { CourseCodes } from '../../model/coursecode.entity';
 import { BadDataException } from '../../exceptions/bad.data.exception';
 import { CourseReview } from '../../model/course.review';
-import {getConnection, MongoClient} from "typeorm";
+import { getConnection, MongoClient } from 'typeorm';
+import { ObjectID } from 'mongodb';
 import {DbService} from "../shared/db/db.service";
 
 
@@ -37,7 +38,7 @@ export class CourseInfoService {
         return this.repo.findOne(id)
     }
 
-    async saveCourse(courseInfo: CourseInfo, user: User) : Promise<CourseInfo> {
+    async saveCourse(courseInfo: CourseInfo, user: User ) : Promise<CourseInfo> {
 
         if (courseInfo == null) {
             throw new BadRequestException(('Empty Body Kindly check body'))
@@ -111,8 +112,15 @@ export class CourseInfoService {
     }
 
 
-    async saveImage(image): Promise<any> {
-        return null;
+    async saveImage(id ,image): Promise<CourseInfo| any> {
+        const result = await this.repo.updateOne(
+          {_id: new ObjectID(id)},
+          {$set: {
+                  thumbnailUrl: image
+              }}
+        );
+        Logger.log(result)
+        return await this.repo.findOne(id);
     }
 
 

@@ -21,6 +21,7 @@ import { Utils } from '../../utiils/utils';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CourseReview } from '../../model/course.review';
 import { ImageData } from './image.data';
+import { ObjectID } from 'typeorm';
 
 
 @ApiTags('Courses')
@@ -87,18 +88,25 @@ export class CourseInfoController {
         //return this.service.addReviewToCourse(review,param.id);
     }
 
-    @Post('upload')
-    @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@UploadedFile() file): Promise<ImageData> {
+    /**
+     * Upload Image to course Info
+     * @param id
+     * @param file
+     */
 
-        const id =  await this.imageRepo.saveImage(file);
-        console.log(file);
+    @Post(':id/upload')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadFile(@Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
+
+        const imgid =  await this.imageRepo.saveImage(file);
         const data : ImageData = {
-            id: id,
+            id: imgid,
             filename: file.originalname,
             mimeType: file.mimetype
         }
-        return data;
+        const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+        console.log(id)
+        return await this.service.saveImage(id,imgData);
     }
 
     @Get(':id/img/:imgid')
@@ -107,6 +115,15 @@ export class CourseInfoController {
         await this.imageRepo.getImageById(param.imgid).on('data', data=> {
             return res.end({data: data.toString('base64')});
         });
+    }
+
+
+    @Post()
+    @ApiResponse({
+        type: CourseInfo
+    })
+    async addCourseInfo(@Body() courseInfo: CourseInfo): Promise<CourseInfo|any> {
+        return await this.service.saveCourse(courseInfo,undefined);
     }
 
 }

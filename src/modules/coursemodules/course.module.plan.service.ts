@@ -19,11 +19,12 @@ export class CourseModulePlanService {
     /**
      * Save a module in the database and update course info for module
      */
-    async addAModule(module: CourseModulePlanEntity): Promise<CourseModulePlanEntity | any> {
-           if( this.courseInfoService.getCourseInfoByUuid(module.courseUUID)==null ) {
+    async addAModule(uuid: string, module: CourseModulePlanEntity): Promise<CourseModulePlanEntity | any> {
+           if( await this.courseInfoService.getCourseInfoByUuid(uuid)==null ) {
                new BadDataException(400,'Invalid UUID',400);
                return ;
            }
+           module.courseUUID = uuid;
            module.status = StatusEnum.NEW;
            return await this.repo.save(module);
     }
@@ -48,5 +49,11 @@ export class CourseModulePlanService {
         const lessons: CourseLesson []  = course.lessons;
 
         lessons.push(lesson);
+
+        await this.repo.updateOne(
+          { _id: course.id }, { $set: { lessons: lessons } }
+        )
+        return this.repo.findOne(moduleId);
     }
+
 }
