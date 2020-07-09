@@ -29,6 +29,7 @@
     "@nestjs/swagger": "^4.5.2",
     "@nestjs/typeorm": "^7.0.0",
     "@types/mongodb": "^3.5.8",
+    "@types/uuid": "^8.0.0",
     "assert": "^2.0.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.1",
