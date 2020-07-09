@@ -11,6 +11,7 @@ import { CourseReview } from '../../model/course.review';
 import { getConnection, MongoClient } from 'typeorm';
 import { ObjectID } from 'mongodb';
 import {DbService} from "../shared/db/db.service";
+import { uuid } from 'uuid';
 
 
 @Injectable()
@@ -79,7 +80,8 @@ export class CourseInfoService {
         courseInfo.approved = false;
         courseInfo.internalRating = courseInfo.internalRating == undefined ? 0 : courseInfo.internalRating;
         courseInfo.externalRating = courseInfo.externalRating == undefined ? 0 : courseInfo.externalRating;
-
+        courseInfo.canonicalName  = _.kebabCase(courseInfo.courseName);
+        courseInfo.uuid = uuid();
 
 
         // Add more business logic here.

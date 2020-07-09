@@ -81,6 +81,7 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
              createdDate: new Date(),
              version: 1,
            },
+           canonicalName: 'qa-au',
            author: 'atins',
            thumbnailUrl: '',
            uuid:'',

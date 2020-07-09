@@ -143,4 +143,8 @@ export class CourseInfo {
   @ApiProperty()
   @Column()
   isPublic: boolean;
+
+  @ApiProperty({description: 'CanonicalName'})
+  @Column({})
+  canonicalName: string;
 }
