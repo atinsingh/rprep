@@ -132,7 +132,8 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
              title:''
            },
            permissions: [],
-           imageData:''
+           imageData:'',
+             relatedPrograms: []
          };
 
          public async up(queryRunner: MongoQueryRunner): Promise<any> {
