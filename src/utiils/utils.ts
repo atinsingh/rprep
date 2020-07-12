@@ -6,6 +6,10 @@ export class Utils {
         return StatusEnum.ACTIVE;
       }
 
+      if(str.trim() =='approved' || str.trim() =='APPROVED' ){
+          return StatusEnum.APPROVED;
+      }
+
     if(str.trim() =='suspended' || str.trim() =='SUSPENDED' ){
       return StatusEnum.SUSPENDED;
     }

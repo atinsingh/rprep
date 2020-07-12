@@ -28,7 +28,8 @@ export class CourseInfoService {
      */
     getAllCourseInfo(options:{}={}): Promise<CourseInfo[]> {
         if(_.isEmpty(options)) {
-            options = { status: StatusEnum.ACTIVE }
+            // change back to ACTIVE later on
+            options = { status: StatusEnum.APPROVED }
         }
         return this.repo.find(options);
     }
@@ -148,6 +149,16 @@ export class CourseInfoService {
             }
         })
     }
+
+
+    async getCourseInfoByCanonicalName(name: string) : Promise<CourseInfo | any> {
+        return await this.repo.findOne({
+            where:{
+                canonicalName: name
+            }
+        })
+    }
+
 
 
 

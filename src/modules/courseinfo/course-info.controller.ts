@@ -45,9 +45,9 @@ export class CourseInfoController {
         status: 400
     })
     getAllCourseInfo(@Query() query) : Promise< CourseInfo[]| undefined>{
-        Logger.debug(`Query Param received `)
+        Logger.debug(`Query Param received  ${query.status}`)
 
-        const options = query.status!=undefined?{status : Utils.getStatusEnumFromString(query.status)} :{};
+        const options = query.status!==undefined?{status : Utils.getStatusEnumFromString(query.status)} :{};
         return this.service.getAllCourseInfo(options);
     }
 
@@ -87,6 +87,20 @@ export class CourseInfoController {
         return this.service.getReviewForACourse(param.id);
         //return this.service.addReviewToCourse(review,param.id);
     }
+
+
+    @ApiParam({
+        name: 'name',
+        type: 'string'
+    })
+    @Get("/coursename/:name")
+    getReviewsByCanonicalName(@Param('name') param) : Promise<CourseReview [] | any> {
+        Logger.log(`Adding Review to course id ${param}`);
+        return this.service.getCourseInfoByCanonicalName(param);
+        //return this.service.addReviewToCourse(review,param.id);
+    }
+
+
 
     /**
      * Upload Image to course Info
