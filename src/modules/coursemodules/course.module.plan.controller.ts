@@ -31,6 +31,8 @@ export class CourseModulePlanController {
         type: CourseModulePlanEntity
     })
     createModule(@Param('uuid') uuid, @Body() module: CourseModulePlanEntity) : Promise<CourseModulePlanEntity> {
-        return this.createModule(uuid, module);
+        return this.moduleService.addAModule(uuid, module);
     }
+
+
 }

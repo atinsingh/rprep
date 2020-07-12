@@ -140,4 +140,8 @@ export class CourseInfoController {
         return await this.service.saveCourse(courseInfo,undefined);
     }
 
+    async addRelatedCourse(@Param('uuid') @Body() courseId: string []) : Promise<void|any> {
+        //
+    }
+
 }

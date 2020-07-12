@@ -147,4 +147,10 @@ export class CourseInfo {
   @ApiProperty({description: 'CanonicalName'})
   @Column({})
   canonicalName: string;
+
+  @Column()
+  @ApiProperty({description: 'related program '})
+  relatedPrograms: [
+
+  ]
 }
