@@ -21,7 +21,7 @@ const commonConf = {
 @Module({
   imports: [TypeOrmModule.forRoot({
           type: 'mongodb',
-          url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms?retryWrites=true&w=majority',
+          url: 'mongodb+srv://pragra:pragra@cluster0-diuvb.mongodb.net/lms',
           entities: commonConf.ENTITIES,
           migrations: commonConf.MIGRATIONS,
           synchronize: true,
