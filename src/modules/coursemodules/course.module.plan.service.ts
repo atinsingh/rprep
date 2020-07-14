@@ -30,7 +30,7 @@ export class CourseModulePlanService {
     }
 
     async getModuleForACourse(uuid: string) : Promise<CourseModulePlanEntity [] | any >{
-        const response = await this.courseInfoService.getCourseInfoByUuid(uuid)
+        const response = await this.repo.find({courseUUID: uuid})
 
         if( response === null || response === undefined ) {
             return new BadDataException(400,'Invalid UUID',400)
