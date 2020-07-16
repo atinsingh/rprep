@@ -165,6 +165,17 @@ export class CourseInfoController {
     }
 
 
+
+    @ApiBody({
+        type: RelatedRequestDto,
+        description: 'related programs'
+    })
+    @Post('related')
+    async getRelateProgram(@Body() relatedProgram: RelatedRequestDto) : Promise<CourseInfo | any>{
+        return  await this.service.getAllRelatedCourseInfo(relatedProgram);
+    }
+
+
     @Post()
     @ApiResponse({
         type: CourseInfo
@@ -172,6 +183,8 @@ export class CourseInfoController {
     async addCourseInfo(@Body() courseInfo: CourseInfo): Promise<CourseInfo|any> {
         return await this.service.saveCourse(courseInfo,undefined);
     }
+
+
 
 
 

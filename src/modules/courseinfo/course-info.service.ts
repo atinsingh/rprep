@@ -8,9 +8,10 @@ import { CourseCodeService } from './course-code.service';
 import { CourseCodes } from '../../model/coursecode.entity';
 import { BadDataException } from '../../exceptions/bad.data.exception';
 import { CourseReview } from '../../model/course.review';
-import { getConnection, MongoClient } from 'typeorm';
+import { getConnection, In, MongoClient } from 'typeorm';
 import { ObjectID } from 'mongodb';
 import {DbService} from "../shared/db/db.service";
+import { RelatedRequestDto } from '../../model/dto/related.request.dto';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { v4: uuidv4 } = require('uuid');
@@ -164,15 +165,40 @@ export class CourseInfoService {
     }
 
     async addRelatedProgram(id: string , related: string[] | string ) : Promise<CourseInfo | any> {
+        Logger.log(`Adding related program for id : ${id} and with related program ${related}`,"addRelatedProgram");
         const courseInfo = await this.repo.findOne(id);
-        const relatedPrograms = courseInfo.relatedPrograms;
+        if(courseInfo===undefined){
+            Logger.error(`No course info fetched for the course id : ${id}`)
+        }
+        const relatedPrograms = courseInfo.relatedPrograms||[];
+        Logger.debug(`currentList of program available  ${relatedPrograms}`)
         if(Array.isArray(related)){
             related.forEach(p=>relatedPrograms.push(p));
         }else {
             relatedPrograms.push(related)
         }
+        /**
+         * Fix here later to analyze if update succeeded and return their proper message.
+         */
+        return await this.repo.updateOne({ _id: new ObjectID(id) },{$set: { relatedPrograms: relatedPrograms }});
+    }
 
-        return await this.repo.updateOne({ id: id },{$set: { relatedPrograms: relatedPrograms }});
+    async getAllRelatedCourseInfo(related: RelatedRequestDto): Promise<CourseInfo [] | any>{
+        // check if related array has value
+        if(related===undefined || related ===null|| related.relatedPrograms.length==0){
+            return new BadDataException(400,`Array relatedPrograms can't be empty  or null`, 400);
+        }
+        let ids;
+        if (typeof related.relatedPrograms !== 'string') {
+            ids =  related.relatedPrograms.map(i => new ObjectID(i));
+        }else {
+             ids = new ObjectID(related.relatedPrograms)
+        }
+        return await this.repo.find({
+            where: {
+                _id: {$in: ids}
+            }
+        });
     }
 
 
