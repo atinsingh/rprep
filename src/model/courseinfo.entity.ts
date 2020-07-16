@@ -150,7 +150,11 @@ export class CourseInfo {
 
   @Column()
   @ApiProperty({description: 'related program '})
-  relatedPrograms: [
+  relatedPrograms: string[
 
   ]
+
+  @Column()
+  @ApiProperty({description: 'Career path image - depricated'})
+  careerPathImg: string;
 }

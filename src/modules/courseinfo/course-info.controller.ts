@@ -12,7 +12,7 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 
-import {ApiParam, ApiResponse, ApiTags} from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { CourseInfoService } from './course-info.service';
 import { ImageRepository } from '../../repository/image.repository';
@@ -22,6 +22,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CourseReview } from '../../model/course.review';
 import { ImageData } from './image.data';
 import { ObjectID } from 'typeorm';
+import { RelatedRequestDto } from '../../model/dto/related.request.dto';
 
 
 @ApiTags('Courses')
@@ -123,12 +124,44 @@ export class CourseInfoController {
         return await this.service.saveImage(id,imgData);
     }
 
-    @Get(':id/img/:imgid')
+
+
+    @Post(':id/upload/careerpath')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadCareerFile(@Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
+
+        const imgid =  await this.imageRepo.saveImage(file);
+        const data : ImageData = {
+            id: imgid,
+            filename: file.originalname,
+            mimeType: file.mimetype
+        }
+        const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+        console.log(id)
+        return await this.service.updateCareerPathImage(id,imgid);
+    }
+
+
+    @Get('images/:imgid')
     async getImage(@Param() param, @Res() res): Promise<any> {
         res.setHeader('Content-type','image/jpeg');
         await this.imageRepo.getImageById(param.imgid).on('data', data=> {
             return res.end({data: data.toString('base64')});
         });
+    }
+
+    @ApiBody({
+        type: RelatedRequestDto,
+        description: 'related programs'
+    })
+    @ApiParam({
+        name:'id',
+        type: 'string',
+        example:'5f0b392779202c7fd738a7dc'
+    })
+    @Post(':id/related')
+    async addRelatedProgram(@Param('id') id: string, @Body() relatedProgram: RelatedRequestDto) : Promise<CourseInfo | any>{
+        return  await this.service.addRelatedProgram(id,relatedProgram.relatedPrograms);
     }
 
 
@@ -140,8 +173,6 @@ export class CourseInfoController {
         return await this.service.saveCourse(courseInfo,undefined);
     }
 
-    async addRelatedCourse(@Param('uuid') @Body() courseId: string []) : Promise<void|any> {
-        //
-    }
+
 
 }

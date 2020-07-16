@@ -159,6 +159,22 @@ export class CourseInfoService {
         })
     }
 
+    async updateCareerPathImage(id: string ,imgId: string) : Promise<CourseInfo | any> {
+        return await this.repo.updateOne({ id: id },{$set: { careerPathImg: imgId }});
+    }
+
+    async addRelatedProgram(id: string , related: string[] | string ) : Promise<CourseInfo | any> {
+        const courseInfo = await this.repo.findOne(id);
+        const relatedPrograms = courseInfo.relatedPrograms;
+        if(Array.isArray(related)){
+            related.forEach(p=>relatedPrograms.push(p));
+        }else {
+            relatedPrograms.push(related)
+        }
+
+        return await this.repo.updateOne({ id: id },{$set: { relatedPrograms: relatedPrograms }});
+    }
+
 
 
 
