@@ -161,7 +161,7 @@ export class CourseInfoService {
     }
 
     async updateCareerPathImage(id: string ,imgId: string) : Promise<CourseInfo | any> {
-        return await this.repo.updateOne({ id: id },{$set: { careerPathImg: imgId }});
+        return await this.repo.updateOne({ _id: new ObjectID(id) },{$set: { careerPathImg: imgId }});
     }
 
     async addRelatedProgram(id: string , related: string[] | string ) : Promise<CourseInfo | any> {
@@ -194,6 +194,7 @@ export class CourseInfoService {
         }else {
              ids = new ObjectID(related.relatedPrograms)
         }
+        Logger.log(`Fetching data from database for following ids : ${ids}`)
         return await this.repo.find({
             where: {
                 _id: {$in: ids}

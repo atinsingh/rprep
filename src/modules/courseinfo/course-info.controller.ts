@@ -138,16 +138,19 @@ export class CourseInfoController {
         }
         const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
         console.log(id)
-        return await this.service.updateCareerPathImage(id,imgid);
+        return await this.service.updateCareerPathImage(id,file.originalname);
     }
 
 
     @Get('images/:imgid')
     async getImage(@Param() param, @Res() res): Promise<any> {
-        res.setHeader('Content-type','image/jpeg');
-        await this.imageRepo.getImageById(param.imgid).on('data', data=> {
-            return res.end({data: data.toString('base64')});
+        res.setHeader('Content-type','image/jpg');
+        await this.imageRepo.getImageByName(param.imgid).on('data', data=> {
+             res.send({data: data.toString('base64')});
+        }).on('finish', data=> {
+            res.end({data: data.toString('base64')})
         });
+
     }
 
     @ApiBody({
@@ -172,6 +175,7 @@ export class CourseInfoController {
     })
     @Post('related')
     async getRelateProgram(@Body() relatedProgram: RelatedRequestDto) : Promise<CourseInfo | any>{
+        Logger.log(`Request Received for related programs with argument ${relatedProgram}`)
         return  await this.service.getAllRelatedCourseInfo(relatedProgram);
     }
 

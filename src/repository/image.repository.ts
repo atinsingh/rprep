@@ -1,5 +1,5 @@
 import { getConnection, MongoClient } from 'typeorm';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { GridFSBucket } from 'mongodb';
 import { Duplex } from 'stream';
 import { ObjectID } from 'mongodb';
@@ -22,10 +22,11 @@ export class ImageRepository {
       console.log(uploadId.id);
       file.pipe(uploadId).on(
         'error',err => {
-          console.log("failed");}
+          Logger.error(`Image upload failed for image: ${data.originalname}`,'ImageRepository.saveImage')
+        }
 
       ).on('finish', ()=>{
-        console.log('done')
+        Logger.log(`Image upload completed for image: ${data.originalname}`,'ImageRepository.saveImage')
       });
       return uploadId.id;
 
@@ -34,6 +35,11 @@ export class ImageRepository {
    getImageById(id: string) : any {
     this.init();
     return this.app.openDownloadStream(new ObjectID(id));
+  }
+
+  getImageByName(name: string) : any {
+    this.init();
+    return this.app.openDownloadStreamByName(name);
   }
 
   init() {

@@ -9,6 +9,7 @@ import { Stats } from './stats';
 import { CourseOverview } from './course.overview';
 import { CourseTerms } from './course.terms';
 import { CoursePermisssion } from './course.permisssion';
+import { ImageData } from './images/image.data';
 
 @Entity('course')
 export class CourseInfo {
@@ -154,7 +155,7 @@ export class CourseInfo {
 
   ]
 
-  @Column()
+  @Column(type => ImageData)
   @ApiProperty({description: 'Career path image - depricated'})
-  careerPathImg: string;
+  careerPathImg: ImageData;
 }
