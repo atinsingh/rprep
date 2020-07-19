@@ -12,17 +12,18 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 
-import { ApiBody, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { CourseInfoService } from './course-info.service';
-import { ImageRepository } from '../../repository/image.repository';
 import { CourseInfo } from '../../model/courseinfo.entity';
 import { Utils } from '../../utiils/utils';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CourseReview } from '../../model/course.review';
-import { ImageData } from './image.data';
 import { ObjectID } from 'typeorm';
 import { RelatedRequestDto } from '../../model/dto/related.request.dto';
+import { ImageData } from '../../model/images/image.data';
+import { ImageTypeEnum } from '../../model/images/image.type.enum';
+import { stringify } from 'querystring';
 
 
 @ApiTags('Courses')
@@ -30,7 +31,7 @@ import { RelatedRequestDto } from '../../model/dto/related.request.dto';
 @UseInterceptors(LoggingInterceptor)
 export class CourseInfoController {
     //data: string;
-    constructor(private service:CourseInfoService, private imageRepo: ImageRepository) {
+    constructor(private service:CourseInfoService,) {
     }
     // @UseGuards(AuthGuard, RolesGuard)
     // @ApiBearerAuth()
@@ -61,7 +62,7 @@ export class CourseInfoController {
         description: 'Returns course for specified id',
         status: 200
     })
-    @Get("/:id")
+    @Get(":id")
     getAllCourseById(@Request() req, @Param() param) : Promise< CourseInfo | undefined>{
         Logger.debug(`Received request for the course id ${param.id} `)
         console.log(req.user)
@@ -109,48 +110,53 @@ export class CourseInfoController {
      * @param file
      */
 
+    // @Post(':id/upload')
+    // @UseInterceptors(FileInterceptor('file'))
+    // async uploadFile(@Query('type') type: ImageTypeEnum,  @Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
+    //
+    //     const imgid =  await this.imageRepo.saveImage(file);
+    //     const data : ImageData = {
+    //         id: imgid,
+    //         filename: file.originalname,
+    //         mimeType: file.mimetype,
+    //         imageType: type
+    //     }
+    //     const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+    //     console.log(id)
+    //     return await this.service.saveImage(id,imgData);
+    // }
+
+
+    @ApiParam({
+        name: 'id',
+        description: 'id of the program'
+    })
+    @ApiQuery({
+        name: 'type',
+        enum: ImageTypeEnum,
+        description: 'Location type of image'
+    })
+
     @Post(':id/upload')
     @UseInterceptors(FileInterceptor('file'))
-    async uploadFile(@Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
-
-        const imgid =  await this.imageRepo.saveImage(file);
-        const data : ImageData = {
-            id: imgid,
-            filename: file.originalname,
-            mimeType: file.mimetype
-        }
-        const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-        console.log(id)
-        return await this.service.saveImage(id,imgData);
+    async uploadCareerFile(@Query('type') query: ImageTypeEnum,@Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
+        console.log(query)
+        return await this.service.updateCareerPathImage(id,query,file);
     }
 
 
-
-    @Post(':id/upload/careerpath')
-    @UseInterceptors(FileInterceptor('file'))
-    async uploadCareerFile(@Param('id') id: string,@UploadedFile() file): Promise<ImageData> {
-
-        const imgid =  await this.imageRepo.saveImage(file);
-        const data : ImageData = {
-            id: imgid,
-            filename: file.originalname,
-            mimeType: file.mimetype
-        }
-        const imgData = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
-        console.log(id)
-        return await this.service.updateCareerPathImage(id,file.originalname);
-    }
-
-
-    @Get('images/:imgid')
+    @ApiParam({
+        name: 'id',
+        description: 'Course Id'
+    })
+    @ApiParam({
+        name: 'imgId',
+        description: 'Name of Of the image'
+    })
+    @Get(':id/images/:imgid')
     async getImage(@Param() param, @Res() res): Promise<any> {
-        res.setHeader('Content-type','image/jpg');
-        await this.imageRepo.getImageByName(param.imgid).on('data', data=> {
-             res.send({data: data.toString('base64')});
-        }).on('finish', data=> {
-            res.end({data: data.toString('base64')})
-        });
-
+        await this.service.getImageData(param.id, param.imgid, res);
+        res.end();
     }
 
     @ApiBody({
@@ -188,6 +194,7 @@ export class CourseInfoController {
         return await this.service.saveCourse(courseInfo,undefined);
     }
 
+    //9365d891-a89d-46e9-b240-1ddede5d3cfe
 
 
 

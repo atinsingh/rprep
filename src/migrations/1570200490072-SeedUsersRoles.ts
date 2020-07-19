@@ -69,73 +69,73 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
            lastModifiedBy: 'system',
          };
 
-         courseInfo: CourseInfo = {
-           courseCode: 'JAVASEL',
-           courseName: 'QA Automation',
-           shortDescription: 'java learning program',
-           description: 'best way to learn java from us',
-           metadata: {
-             createdBy: 'Atin',
-             lastModifiedBy: 'Atin',
-             lastModifiedDate: new Date(),
-             createdDate: new Date(),
-             version: 1,
-           },
-           canonicalName: 'qa-au',
-           author: 'atins',
-           thumbnailUrl: '',
-           uuid:'',
-           defaultView: '',
-           instructor: 'atins',
-           deliveryMode: ['ONLINE', 'OFFLINE'],
-           companyId: 'pragra',
-           internalRating:1,
-           externalRating: 1,
-           isPublic: true,
-           deliveryLocation: [
-             {
-               locationId: '233',
-             },
-           ],
-           status: StatusEnum.ACTIVE,
-           approved: true,
-           approvedBy: 'VG',
-           stats:{
-             enrolledStudent: 1,
-             totalHours:1,
-             totalModules: 1,
-             language: LangaugeEnum.ENGLISH,
-             skillLevel: 1,
-             totalLessons: 1
-
-           },
-           courseType: [CourseStatusEnum.NEW],
-           category: [
-           ],
-           subCategory:[],
-           reviews: [
-             {
-               id: 'Atin',
-               reviewer: 'NEW_ID_REV',
-               reviewDate: new Date(),
-               reviewStar: 1,
-               reviewComments: 'dcd',
-               status: StatusEnum.ACTIVE,
-               programId: 'NEW_ID',
-               modified: true,
-               modifiedDate:new Date()
-             },
-           ],
-           overview: {
-             highlights: [],
-             description: '',
-             title:''
-           },
-           permissions: [],
-           imageData:'',
-           relatedPrograms: [],
-           careerPathImg:null
-         };
+         // courseInfo: CourseInfo = {
+         //   courseCode: 'JAVASEL',
+         //   courseName: 'QA Automation',
+         //   shortDescription: 'java learning program',
+         //   description: 'best way to learn java from us',
+         //   metadata: {
+         //     createdBy: 'Atin',
+         //     lastModifiedBy: 'Atin',
+         //     lastModifiedDate: new Date(),
+         //     createdDate: new Date(),
+         //     version: 1,
+         //   },
+         //   canonicalName: 'qa-au',
+         //   author: 'atins',
+         //   thumbnailUrl: '',
+         //   uuid:'',
+         //   defaultView: '',
+         //   instructor: 'atins',
+         //   deliveryMode: ['ONLINE', 'OFFLINE'],
+         //   companyId: 'pragra',
+         //   internalRating:1,
+         //   externalRating: 1,
+         //   isPublic: true,
+         //   deliveryLocation: [
+         //     {
+         //       locationId: '233',
+         //     },
+         //   ],
+         //   status: StatusEnum.ACTIVE,
+         //   approved: true,
+         //   approvedBy: 'VG',
+         //   stats:{
+         //     enrolledStudent: 1,
+         //     totalHours:1,
+         //     totalModules: 1,
+         //     language: LangaugeEnum.ENGLISH,
+         //     skillLevel: 1,
+         //     totalLessons: 1
+         //
+         //   },
+         //   courseType: [CourseStatusEnum.NEW],
+         //   category: [
+         //   ],
+         //   subCategory:[],
+         //   reviews: [
+         //     {
+         //       id: 'Atin',
+         //       reviewer: 'NEW_ID_REV',
+         //       reviewDate: new Date(),
+         //       reviewStar: 1,
+         //       reviewComments: 'dcd',
+         //       status: StatusEnum.ACTIVE,
+         //       programId: 'NEW_ID',
+         //       modified: true,
+         //       modifiedDate:new Date()
+         //     },
+         //   ],
+         //   overview: {
+         //     highlights: [],
+         //     description: '',
+         //     title:''
+         //   },
+         //   permissions: [],
+         //   imageData:'',
+         //   relatedPrograms: [],
+         //   careerPathImg:[]
+         // };
 
          public async up(queryRunner: MongoQueryRunner): Promise<any> {
            const manager = getMongoManager();
@@ -149,7 +149,7 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
            //   .values([this.role1, this.role2])
            //   .execute();
 
-           await queryRunner.insertOne('courseinfo', this.courseInfo);
+           //await queryRunner.insertOne('courseinfo', this.courseInfo);
            await queryRunner.insertOne('user', this.user3);
            await queryRunner.insertOne('user', this.user2);
 

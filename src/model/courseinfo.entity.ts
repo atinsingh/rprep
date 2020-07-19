@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { MetaData } from './metadata.subentity';
 import { StatusEnum } from './enums/status.enum';
 import { CourseReview } from './course.review.entity';
-import { IsString } from 'class-validator';
+import { isArray, IsString } from 'class-validator';
 import { CourseStatusEnum } from './enums/course.status.enum';
 import { Stats } from './stats';
 import { CourseOverview } from './course.overview';
@@ -155,7 +155,7 @@ export class CourseInfo {
 
   ]
 
-  @Column(type => ImageData)
-  @ApiProperty({description: 'Career path image - depricated'})
-  careerPathImg: ImageData;
+  @Column( )
+  @ApiProperty({description: 'Career path image - deprecated'})
+  careerPathImg: ImageData[];
 }

@@ -1,5 +1,7 @@
 import { Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { ImageTypeEnum } from './image.type.enum';
+
 
 export class ImageData {
     @ApiProperty({description: 'Image id from Mongodb'})
@@ -11,4 +13,7 @@ export class ImageData {
 
     @Column()
     mimeType: string;
+
+    @Column()
+    imageType: ImageTypeEnum
 }

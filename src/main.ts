@@ -11,12 +11,14 @@ const port = process.env.NODE_SERVER_PORT || config.get('server.port');
 async function bootstrap() {
   const appOptions = { cors: true };
   const app = await NestFactory.create(AppModule, appOptions);
+
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: (): BadRequestException => new BadRequestException('Validation error')
     }),
 
   );
+
 
   setupSwagger(app);
 

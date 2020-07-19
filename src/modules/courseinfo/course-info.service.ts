@@ -8,10 +8,11 @@ import { CourseCodeService } from './course-code.service';
 import { CourseCodes } from '../../model/coursecode.entity';
 import { BadDataException } from '../../exceptions/bad.data.exception';
 import { CourseReview } from '../../model/course.review';
-import { getConnection, In, MongoClient } from 'typeorm';
 import { ObjectID } from 'mongodb';
-import {DbService} from "../shared/db/db.service";
 import { RelatedRequestDto } from '../../model/dto/related.request.dto';
+import { ImageData } from '../../model/images/image.data';
+import { ImageTypeEnum } from '../../model/images/image.type.enum';
+import { ImageRepository } from '../../repository/image.repository';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { v4: uuidv4 } = require('uuid');
@@ -21,18 +22,23 @@ const { v4: uuidv4 } = require('uuid');
 @Injectable()
 export class CourseInfoService {
 
-    constructor(private repo: CourseInfoRepository, private courseCodeService: CourseCodeService) {
+    constructor(private repo: CourseInfoRepository,
+                private courseCodeService: CourseCodeService,
+                private imageRepo: ImageRepository) {
     }
 
     /*
         Get All courses for the options passed
      */
-    getAllCourseInfo(options:{}={}): Promise<CourseInfo[]> {
+    async getAllCourseInfo(options:{}={}): Promise<CourseInfo[]> {
         if(_.isEmpty(options)) {
             // change back to ACTIVE later on
             options = { status: StatusEnum.APPROVED }
         }
-        return this.repo.find(options);
+        Logger.log(`Finding course info with following option ${options}`)
+        const data = await this.repo.find(options);
+        Logger.log(`Got following output from database : ${data}`)
+        return data;
     }
 
     /**
@@ -40,8 +46,10 @@ export class CourseInfoService {
      * @param id
      * @return {@CourseInfo}
      */
-    getCourseById(id: string): Promise<CourseInfo>{
-        return this.repo.findOne(id)
+    async getCourseById(id): Promise<CourseInfo>{
+            const  info = await this.repo.findOne(id);
+            Logger.log(`Got following data from database : ${info}`);
+            return info;
     }
 
     async saveCourse(courseInfo: CourseInfo, user: User ) : Promise<CourseInfo> {
@@ -106,8 +114,8 @@ export class CourseInfoService {
         }
         const course:CourseInfo = await this.repo.findOne(courseId);
         const rev = course.reviews;
-        courseReview.reviewDate = (courseReview.reviewDate==undefined|| courseReview.reviewDate ==null)? new Date(): courseReview.reviewDate;
-        courseReview.status = (courseReview.status==undefined|| courseReview.status ==null)?StatusEnum.NEW:courseReview.status;
+        courseReview.reviewDate = (courseReview.reviewDate == undefined || false)? new Date(): courseReview.reviewDate;
+        courseReview.status = (courseReview.status == undefined || false)?StatusEnum.NEW:courseReview.status;
         rev.push(courseReview);
         const result = await this.repo.updateOne({ courseCode : course.courseCode }, { $set: { reviews: rev } });
         Logger.log(result)
@@ -160,8 +168,30 @@ export class CourseInfoService {
         })
     }
 
-    async updateCareerPathImage(id: string ,imgId: string) : Promise<CourseInfo | any> {
-        return await this.repo.updateOne({ _id: new ObjectID(id) },{$set: { careerPathImg: imgId }});
+    async updateCareerPathImage(id: string, query: ImageTypeEnum ,file) : Promise<CourseInfo | any> {
+        const imgid =  await this.imageRepo.saveImage(file);
+        const data : ImageData = {
+            id: imgid,
+            filename: file.originalname,
+            mimeType: file.mimetype,
+            imageType: query
+        }
+        const courseInfo = await this.repo.findOne(id);
+        if(data.imageType == ImageTypeEnum.CARD) {
+            await this.repo.updateOne({ _id: new ObjectID(id) },{$set: { thumbnailUrl: data.filename }});
+        }
+        let imgs = courseInfo.careerPathImg==undefined?  [] : courseInfo.careerPathImg;
+        if(!Array.isArray(imgs)){
+            imgs = [imgs];
+        }
+        Logger.log(`Got the following from request ${JSON.stringify(data)}`)
+        console.log(`Data ${JSON.stringify(imgs)}`)
+        _.remove(imgs, img => {
+            return data.imageType === img.imageType;
+        })
+        imgs.push(data);
+
+        return await this.repo.updateOne({ _id: new ObjectID(id) },{$set: { careerPathImg: imgs }});
     }
 
     async addRelatedProgram(id: string , related: string[] | string ) : Promise<CourseInfo | any> {
@@ -170,10 +200,13 @@ export class CourseInfoService {
         if(courseInfo===undefined){
             Logger.error(`No course info fetched for the course id : ${id}`)
         }
+
         const relatedPrograms = courseInfo.relatedPrograms||[];
         Logger.debug(`currentList of program available  ${relatedPrograms}`)
         if(Array.isArray(related)){
-            related.forEach(p=>relatedPrograms.push(p));
+            related.forEach(p => {
+                relatedPrograms.push(p)
+            });
         }else {
             relatedPrograms.push(related)
         }
@@ -203,9 +236,25 @@ export class CourseInfoService {
     }
 
 
+    /*
+        Get the image data for the image
+     */
+
+    async getImageData(id: string, img: string, res) : Promise<ImageData | any> {
+         const images  = await this.repo.findOne(id, {
+                select: ['careerPathImg'],
+         });
+         const imgData = images.careerPathImg.filter(image => image.filename==img ).pop();
 
 
+        await this.imageRepo.getImageByName(img).on('data', data=> {
+            res.send({data: 'data:'+imgData.mimeType+';base64,'+ data.toString('base64')});
+        }).on('finish', data=> {
+            //
+        });
 
 
+       //return images.filter
+    }
 
 }
