@@ -9,6 +9,7 @@ export class Config {
   debugLogging = 'debug';
 
   'server.port' = '80';
+  'server.mode'= 'dev'
   'app.security.authentication.jwt.base64-secret' = 'secret';
   'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
   'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;
@@ -20,6 +21,10 @@ export class Config {
   'app.swagger.version' = '0.0.1';
   'app.swagger.path' = '/api/docs';
   'app.db' = 'lms';
+  'app.smtp.setting': {
+
+  }
+
 
   constructor(properties) {
     this.addAll(properties);

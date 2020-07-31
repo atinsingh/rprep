@@ -49,5 +49,9 @@ export class ContactDto extends BaseEntity{
     @Column()
     zip: string
 
+    @ApiProperty({description: 'Message of student'})
+    @Column()
+    msg: string
+
     status: ContactStatusEnum;
 }

@@ -1,0 +1,66 @@
+body {
+    font-family: Helvetica, sans-sarif
+    text-align: center;
+    background: #81ecec 0.2;
+    font-size: 14px;
+  }
+  .container {
+    padding: 10px
+  }
+  
+  .team {
+    margin: 45px 0;
+    list-style: none;
+  }
+  .contact {
+      
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #6c5ce7;
+    color: #fff;
+  }
+  .email {
+      text-decoration: none;
+      color: #fff;
+  }
+  .item {
+    text-align: center;
+    padding : 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .msg {`
+    font-size: 18px;
+    padding: 10px;
+    background: #a29bfe;
+    color: #2d3436;
+  }
+  
+  p{
+    padding: 10px;
+    font-size: 18px
+  }
+  
+  .team li {
+    margin-bottom: 35px;
+  }
+  
+  .divider {
+    padding: 2px;
+    border-bottom: 2px solid blue;
+  }
+  img {
+    width: 195px;
+  }
+  
+  .fa-twitter{
+    font-size: 25px;
+  }
+  
+  a:visited {
+    color: blue;
+  }
+  h1 {
+    padding : 2px;
+  }

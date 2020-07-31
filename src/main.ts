@@ -12,16 +12,25 @@ const port = process.env.NODE_SERVER_PORT || config.get('server.port');
 
 async function bootstrap() {
 
-
-  const certFile = fs.readFileSync('/etc/letsencrypt/live/pragra.io/fullchain.pem');
-  const keyFile = fs.readFileSync('/etc/letsencrypt/live/pragra.io/privkey.pem');
-  const appOptions = {
+  const mode = config.get('server.mode')
+  let appOptions = null;
+  if(mode=='dev'){
+     appOptions = {
+      cors: true
+    };
+  
+  }else {
+    const certFile = fs.readFileSync('/etc/letsencrypt/live/pragra.io/fullchain.pem');
+    const keyFile = fs.readFileSync('/etc/letsencrypt/live/pragra.io/privkey.pem');
+  appOptions = {
     cors: true,
     httpsOptions: {
       key: keyFile,
       cert: certFile,
     },
   };
+  }
+  
 
   const app = await NestFactory.create(AppModule, appOptions);
 

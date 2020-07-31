@@ -6,6 +6,9 @@ import { TestimonialModule } from "./modules/testimonial/testimonial.module";
 import { CourseDetailsModule } from "./modules/coursemodules/course.details.module";
 import { ContactModule } from './modules/contact/contact.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { MailerModule } from "@nestjs-modules/mailer";
+import { PugAdapter } from "@nestjs-modules/mailer/dist/adapters/pug.adapter";
+import * as nodemailer from "nodemailer";
 
 const commonConf = {
   SYNCRONIZE: false,

@@ -1,0 +1,12 @@
+link(rel="stylesheet", href="http://localhost/style.css")
+
+div.container
+  img(src="https://pragra.io/assets/images/logon.png" alt='Pragra')
+  div.divider
+  h1 New Contact Has been Submitted
+  div.contact
+    div.item #{contact.firstname}
+    div.item.email #{contact.email}
+    div.item #{contact.phone}
+  div.msg Message: #{contact.msg}
+  p Dear Team, Kindly verify the contact, contact form may be duplicated, kindly ensure that contact has been created in the hubspot and status of contact has been updated. Kindly do update the noted in hubspot on followup call. This is very important, kindly make sure , you have been following the Pragra standard script while talking to prospects. <br><br><br>Regards, Team Pragra
