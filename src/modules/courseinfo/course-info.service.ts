@@ -247,14 +247,25 @@ export class CourseInfoService {
          const imgData = images.careerPathImg.filter(image => image.filename==img ).pop();
 
 
-        await this.imageRepo.getImageByName(img).on('data', data=> {
-            res.send({data: 'data:'+imgData.mimeType+';base64,'+ data.toString('base64')});
-        }).on('finish', data=> {
+        await this.imageRepo.getImageByName(img).on('data', data => {
+            res.send({ data: 'data:' + imgData.mimeType + ';base64,' + data.toString('base64') });
+        }).on('finish', data => {
             //
         });
 
 
-       //return images.filter
+        //return images.filter
     }
 
+    updateCouseImage(id: string, path: string): Promise<CourseInfo | any> {
+        path = `https://pragra.gumlet.net/${path}`;
+        this.repo.updateOne({
+            _id: new ObjectID(id),
+        }, {
+            $set: {
+                thumbnailUrl: path,
+            },
+        });
+        return this.repo.findOne(id);
+    }
 }

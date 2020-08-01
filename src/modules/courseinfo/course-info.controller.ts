@@ -5,10 +5,11 @@ import {
     Logger,
     Param,
     Post,
+    Put,
     Query,
-    Request, Res,
+    Request,
+    Res,
     UploadedFile,
-    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 
@@ -19,11 +20,9 @@ import { CourseInfo } from '../../model/courseinfo.entity';
 import { Utils } from '../../utiils/utils';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CourseReview } from '../../model/course.review';
-import { ObjectID } from 'typeorm';
 import { RelatedRequestDto } from '../../model/dto/related.request.dto';
 import { ImageData } from '../../model/images/image.data';
 import { ImageTypeEnum } from '../../model/images/image.type.enum';
-import { stringify } from 'querystring';
 
 
 @ApiTags('Courses')
@@ -93,15 +92,20 @@ export class CourseInfoController {
 
     @ApiParam({
         name: 'name',
-        type: 'string'
+        type: 'string',
     })
-    @Get("/coursename/:name")
-    getReviewsByCanonicalName(@Param('name') param) : Promise<CourseReview [] | any> {
+    @Get('/coursename/:name')
+    getReviewsByCanonicalName(@Param('name') param): Promise<CourseReview [] | any> {
         Logger.log(`Adding Review to course id ${param}`);
         return this.service.getCourseInfoByCanonicalName(param);
         //return this.service.addReviewToCourse(review,param.id);
     }
 
+
+    @Put(':id/image')
+    udpateCourseImage(@Param('id') id, @Query('path') path): Promise<any> {
+        return this.service.updateCouseImage(id, path);
+    }
 
 
     /**
