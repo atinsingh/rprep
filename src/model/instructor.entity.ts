@@ -44,4 +44,10 @@ export class InstructorEntity extends BaseEntity{
     @Column()
     userID: string;
 
+    @ApiProperty({
+        title: 'Image url'
+    })
+    @Column()
+    avatarUrl:string;
+
 }

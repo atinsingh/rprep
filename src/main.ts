@@ -7,7 +7,7 @@ import { config } from './app.config';
 import * as fs from 'fs';
 
 const logger: Logger = new Logger('Main');
-const port = process.env.NODE_SERVER_PORT || config.get('server.port');
+let port = process.env.NODE_SERVER_PORT || config.get('server.port');
 
 
 async function bootstrap() {
@@ -15,6 +15,7 @@ async function bootstrap() {
   const mode = config.get('server.mode')
   let appOptions = null;
   if(mode=='dev'){
+     port = 8081;
      appOptions = {
       cors: true
     };

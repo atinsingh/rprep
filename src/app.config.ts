@@ -8,8 +8,8 @@ const logger = new Logger('Config');
 export class Config {
   debugLogging = 'debug';
 
-  'server.port' = '80';
-  'server.mode'= 'dev'
+  'server.port' = '443';
+  'server.mode'= 'prod'
   'app.security.authentication.jwt.base64-secret' = 'secret';
   'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
   'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;

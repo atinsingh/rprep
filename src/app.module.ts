@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { MailerModule } from "@nestjs-modules/mailer";
 import { PugAdapter } from "@nestjs-modules/mailer/dist/adapters/pug.adapter";
 import * as nodemailer from "nodemailer";
+import { ScheduleModule } from './modules/schedule/schedule.module';
 
 const commonConf = {
   SYNCRONIZE: false,
@@ -45,7 +46,8 @@ const commonConf = {
       AuthModule,
       TestimonialModule,
       CourseDetailsModule,
-      ContactModule
+      ContactModule,
+      ScheduleModule
       ],
   controllers: [],
   providers: [],
