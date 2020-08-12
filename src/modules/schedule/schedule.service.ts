@@ -30,6 +30,10 @@ export class ScheduleService {
       const  response = await this.repo.findOne({
         courseId: id
       });
+      if(response===undefined || response===null){
+        throw new BadDataException(404,`No schedule found for Id, kindly verify the course id:  ${id}`, 404)
+        return ;
+      }
       Logger.log(`Received following from MongoDB ${JSON.stringify(response)}`)
       return response;
     }
