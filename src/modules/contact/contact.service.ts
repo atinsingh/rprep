@@ -22,7 +22,7 @@ export class ContactService {
       contact.status = 0;
       contact.createdDate = new Date();
       this.notifyService.sendNewContactEmail(contact);
-    //return await  this.repository.save(contact);
+      return await  this.repository.save(contact);
 
   }
 }
