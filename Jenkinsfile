@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('API Functional Test){
+        stage('API Functional Test'){
                 steps {
                     agent { docker 'maven:3-alpine' }
                     steps {
