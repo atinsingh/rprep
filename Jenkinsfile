@@ -27,6 +27,24 @@ pipeline {
                 sh 'npm run dev &'
             }
         }
+
+        stage('API Functional Test){
+                steps {
+                    agent { docker 'maven:3-alpine' }
+                    steps {
+                        git 'https://github.com/atinsingh/care-rest-automation.git'
+                        sh 'mvn -Dtest=TCRunner test'
+                    }
+
+           }
+
+         stages('Reports') {
+            steps {
+                cucumber buildStatus: "UNSTABLE",
+                fileIncludePattern: "**/cucumber.json",
+                jsonReportDirectory: 'target'
+            }
+         }
   
     }
 }
