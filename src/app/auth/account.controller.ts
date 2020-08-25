@@ -17,6 +17,7 @@ export class AccountController {
   constructor(private readonly authService: AuthService) {}
   @Post('/register')
   //@ApiOperation({ title: 'Register user' })
+  // Added
   @ApiResponse({
     status: 201,
     description: 'Registered user',
