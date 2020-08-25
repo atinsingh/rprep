@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Unit testing') {
             steps {
-
+                sh 'echo Testing done'
             }
         }
         stage('Prepare Package') {
