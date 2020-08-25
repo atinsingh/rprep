@@ -34,10 +34,9 @@ pipeline {
                         git 'https://github.com/atinsingh/care-rest-automation.git'
                         sh 'mvn -Dtest=TCRunner test'
                     }
-
            }
 
-         stages('Reports') {
+         stage('Reports') {
             steps {
                 cucumber buildStatus: "UNSTABLE",
                 fileIncludePattern: "**/cucumber.json",
