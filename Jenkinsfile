@@ -25,12 +25,11 @@ pipeline {
         }
         stage('Deploy Server') {
             steps {
-                sh 'npm run dev &'
+                sh 'npm run dev'
             }
         }
 
         stage('API Functional Test'){
-
                     steps {
                         git 'https://github.com/atinsingh/care-rest-automation.git'
                         sh 'cd care-rest-automation'
