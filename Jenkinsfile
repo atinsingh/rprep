@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Unit testing') {
             steps {
-             sh 'npm run test'
+
             }
         }
         stage('Prepare Package') {
