@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, Logger } from '@nestjs/common';
 import { CourseInfoRepository } from '../../repository/courseinfo.repository';
 import { CourseInfo } from '../../model/courseinfo.entity';
 import _ from 'lodash';
@@ -47,7 +47,15 @@ export class CourseInfoService {
      * @return {@CourseInfo}
      */
     async getCourseById(id): Promise<CourseInfo>{
+            if(!ObjectID.isValid(id)){
+                throw new BadRequestException('Invalid course info id')
+                return ;
+            }
+            console.log(id)
             const  info = await this.repo.findOne(id);
+            if( info ===undefined || info == null ){
+                throw new HttpException('No data found for this id', 404 )
+            }
             Logger.log(`Got following data from database : ${info}`);
             return info;
     }

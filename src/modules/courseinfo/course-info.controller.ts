@@ -61,6 +61,11 @@ export class CourseInfoController {
         description: 'Returns course for specified id',
         status: 200
     })
+    @ApiResponse({
+        type : Error,
+        description: 'Returns course for specified id',
+        status: 404
+    })
     @Get(":id")
     getAllCourseById(@Request() req, @Param() param) : Promise< CourseInfo | undefined>{
         Logger.debug(`Received request for the course id ${param.id} `)

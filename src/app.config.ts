@@ -9,7 +9,7 @@ export class Config {
   debugLogging = 'debug';
 
   'server.port' = '443';
-  'server.mode'= 'prod'
+  'server.mode'= 'dev'
   'app.security.authentication.jwt.base64-secret' = 'secret';
   'app.security.authentication.jwt.token-validity-in-seconds' = 86400;
   'app.security.authentication.jwt.token-validity-in-seconds-for-remember-me' = 2592000;
