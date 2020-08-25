@@ -7,5 +7,9 @@ pipeline {
                 sh 'echo define '
             }
         }
+        stage('Compile') {
+            sh 'npm install'
+            sh 'npm run build'
+        }
     }
 }
